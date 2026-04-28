@@ -58,7 +58,7 @@ onMounted(() => {
 // --- API Functions ---
 const fetchEquipment = async () => {
   try {
-    const response = await fetch('http://localhost/api/get_equipment.php');
+    const response = await fetch('http://10.12.29.62/api/get_equipment.php');
     const data = await response.json();
     equipmentList.value = Array.isArray(data) ? data : [];
   } catch (error) { console.error(error); equipmentList.value = []; }
@@ -66,7 +66,7 @@ const fetchEquipment = async () => {
 
 const fetchHistory = async () => {
   try {
-    const response = await fetch('http://localhost/api/get_history.php');
+    const response = await fetch('http://10.12.29.62/api/get_equipment.php');
     const data = await response.json();
     historyList.value = Array.isArray(data) ? data : [];
   } catch (error) { console.error(error); }
@@ -74,7 +74,7 @@ const fetchHistory = async () => {
 
 const handleLogin = async () => {
   try {
-    const response = await fetch('http://localhost/api/db.php', {
+    const response = await fetch('http://10.12.29.62/api/db.php', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: username.value, password: password.value })
     });
@@ -92,7 +92,7 @@ const handleLogin = async () => {
 const handleRegister = async () => {
   if (!regUsername.value || !regPassword.value || !regFullname.value) return alert('กรุณากรอกข้อมูลให้ครบ');
   try {
-    const response = await fetch('http://localhost/api/register.php', {
+    const response = await fetch('http://10.12.29.62/api/register.php', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: regUsername.value, password: regPassword.value, fullname: regFullname.value })
     });
@@ -156,7 +156,7 @@ const submitReturnOverdue = () => {
 const processStatusChange = async (item, newStatus, extraData) => {
   isUpdating.value = item.id;
   try {
-    await fetch('http://localhost/api/update_status.php', {
+    await fetch('http://10.12.29.62/api/update_status.php', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: item.id, status: newStatus, fullname: currentUser.value.fullname, ...extraData })
     });
@@ -174,7 +174,7 @@ const sendToRepair = (item) => {
 const addEquipment = async () => {
   if (!newEquip.value.name) return alert('ระบุชื่ออุปกรณ์ด้วยครับ');
   try {
-    const response = await fetch('http://localhost/api/add_equipment.php', {
+    const response = await fetch('http://10.12.29.62/api/add_equipment.php', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...newEquip.value, role: currentUser.value.role })
     });
@@ -187,7 +187,7 @@ const addEquipment = async () => {
 const deleteItem = async (id) => {
   if (!confirm('ยืนยันลบถาวร?')) return;
   try {
-    const response = await fetch('http://localhost/api/delete_equipment.php', {
+    const response = await fetch('http://10.12.29.62/api/delete_equipment.php', {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, role: currentUser.value.role })
     });
     const data = await response.json();
